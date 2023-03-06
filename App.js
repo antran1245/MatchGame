@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import WordsList from './components/WordsList';
 
 export default function App() {
   const [words, setWords] = useState([])
@@ -17,6 +18,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
+      <WordsList words={words}/>
       <StatusBar style="auto" />
     </View>
   );
