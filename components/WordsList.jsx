@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'baseline',
     padding: 10,
-    position: 'absolute',
-    bottom: 0
+    // position: 'absolute',
+    // bottom: 0
   },
   word_container: {
     backgroundColor: '#F7F5EB',
