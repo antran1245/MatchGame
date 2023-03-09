@@ -5,6 +5,7 @@ import WordsList from './components/WordsList';
 
 export default function App() {
   const [words, setWords] = useState([])
+  const [definition, setDefinition] = useState([])
   useEffect (() => {
     fetch("https://random-word-api.herokuapp.com/word?number=10")
     .then(resp => resp.json())
@@ -15,6 +16,19 @@ export default function App() {
     .catch(err => console.error(err))
   }, [])
   
+  useEffect(() => {
+    let findDefinition = () => {
+      let temp = []
+      for(const word of words) {
+        fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+        .then(resp => resp.json())
+        .then(data => {
+          temp.push(data)
+        })
+      }
+      setDefinition([...temp])
+    }
+  }, [words])
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
