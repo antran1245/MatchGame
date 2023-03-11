@@ -20,7 +20,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'baseline',
     padding: 10,
-    // position: 'absolute',
-    // bottom: 0
   }
 })

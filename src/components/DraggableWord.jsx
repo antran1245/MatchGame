@@ -15,7 +15,7 @@ export default function DraggableWord({word} : props) {
   return(
     <Animated.View
       style={{transform: [{translateX: pan.x}, {translateY: pan.y}]}}
-      {...panResponder.panHandlers}>
+      {...panResponder.panHandlers} onTouchStart={() => console.log('here')}>
       <View style={styles.word_container}>
         <Text>{word}</Text>
       </View>

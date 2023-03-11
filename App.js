@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import DefinitionsList from './components/DefinitionsList';
-import WordsList from './components/WordsList';
+import DefinitionsList from './src/components/DefinitionsList';
+import WordsList from './src/components/WordsList';
+import ContextProvider from './src/context/ContextProvider';
 
 export default function App() {
   const [list, setList] = useState([])
@@ -49,14 +50,16 @@ export default function App() {
   }, [list])
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Word match Definition</Text>
+    <ContextProvider>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Word match Definition</Text>
+        </View>
+        <DefinitionsList definition={definition}/>
+        <WordsList words={words}/>
+        <StatusBar style="auto" />
       </View>
-      <DefinitionsList definition={definition}/>
-      <WordsList words={words}/>
-      <StatusBar style="auto" />
-    </View>
+    </ContextProvider>
   );
 }
 
