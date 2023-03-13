@@ -41,7 +41,7 @@ export default function App() {
           temp.push(data[0])
           matchWords.push(data[0].word)
         }
-        if(temp.length === 10) break
+        if(temp.length === 3) break
       }
       setDefinition([...temp])
       setWords([...matchWords])
