@@ -1,9 +1,9 @@
 import { useContext, useRef } from "react"
 import { Animated, PanResponder, StyleSheet, View, Text } from "react-native"
-import ContextProvider from "../context/ContextProvider"
+import { StateContext } from "../context/ContextProvider"
 
 export default function DraggableWord({word} : props) {
-  const state = useContext(ContextProvider)
+  const { setScrollable } = useContext(StateContext)
 
   const pan = useRef(new Animated.ValueXY()).current
   const panResponder = useRef(
@@ -19,7 +19,7 @@ export default function DraggableWord({word} : props) {
   return(
     <Animated.View
       style={{transform: [{translateX: pan.x}, {translateY: pan.y}]}}
-      {...panResponder.panHandlers} onTouchStart={() => state.setScrollable(false)} onTouchEnd={() => state.setScrollable(true)}>
+      {...panResponder.panHandlers} onTouchStart={() => setScrollable(false)} onTouchEnd={() => setScrollable(true)}>
       <View style={styles.word_container}>
         <Text>{word}</Text>
       </View>

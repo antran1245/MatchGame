@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import ContextProvider from '../context/ContextProvider';
+import { StateContext } from '../context/ContextProvider';
 
 export default function DefinitionsList({ definition } : props) {
-  const state = useContext(ContextProvider)
+  const {scrollable} = useContext(StateContext)
   return(
-    <ScrollView style={styles.container} scrollEnabled={state.scrollable}>
+    <ScrollView style={styles.container} scrollEnabled={scrollable}>
       {definition.map((item, index) => {
         return <View style={styles.box} key={index}>
           <Text>{item.word} {item.meanings[0].definitions[0].definition}</Text>
