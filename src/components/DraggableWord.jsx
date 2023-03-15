@@ -3,8 +3,8 @@ import { Animated, PanResponder, StyleSheet, View, Text } from "react-native"
 import { StateContext } from "../context/ContextProvider"
 
 export default function DraggableWord({word} : props) {
-  const { setScrollable } = useContext(StateContext)
-  const [color, setColor] = useState('white')
+  const context = useContext(StateContext)
+  const [backgroundColor, setBackgroundColor] = useState('white')
 
   const pan = useRef(new Animated.ValueXY()).current
   const panResponder = useRef(
@@ -12,17 +12,21 @@ export default function DraggableWord({word} : props) {
       onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: Animated.event([null, {dx: pan.x, dy: pan.y}], {useNativeDriver: false}),
       onPanResponderRelease: (event, gesture) => {
-        setColor('blue')
+        setBackgroundColor('blue')
         pan.extractOffset()
       }
     })
   ).current
-
+  
+  const test = () => {
+    console.log(context.definitionLocation)
+    context.setScrollable(true)
+  }
   return(
     <Animated.View
       style={{transform: [{translateX: pan.x}, {translateY: pan.y}]}}
-      {...panResponder.panHandlers} onTouchStart={() => setScrollable(true)} onTouchEnd={() => setScrollable(true)}>
-      <View style={[styles.word_container, {backgroundColor: color}]}>
+      {...panResponder.panHandlers} onTouchStart={() => context.setScrollable(true)} onTouchEnd={() => test()}>
+      <View style={[styles.word_container, {backgroundColor: backgroundColor}]}>
         <Text>{word}</Text>
       </View>
     </Animated.View>
@@ -37,5 +41,7 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     marginHorizontal: 4,
     borderRadius: 30,
+    borderWidth: 1,
+    borderColor: 'black'
   }
 })
