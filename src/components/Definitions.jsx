@@ -1,18 +1,15 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { StateContext } from '../context/ContextProvider';
 
 export default function Definitions({item} : props) {
-  const state = useContext(StateContext)
+  const { addItemRef } = useContext(StateContext)
+  const ref = useRef()
 
-  const onlayout = (event) => {
-    let {layout} = event.nativeEvent
-    console.log(layout)
-    state.setDefinitionLocation(oldArray => [...oldArray, layout])
-  }
+  addItemRef(ref)
 
   return(
-    <View style={styles.box} onLayout={onlayout}>
+    <View style={styles.box} ref={ref}>
       <Text>{item.word} {item.meanings[0].definitions[0].definition}</Text>
     </View>
   )

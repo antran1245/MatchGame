@@ -55,8 +55,8 @@ export default function App() {
         <View style={styles.header}>
           <Text style={styles.title}>Word match Definition</Text>
         </View>
-        <DefinitionsList definition={definition}/>
-        <WordsList words={words}/>
+          <DefinitionsList definition={definition}/>
+          <WordsList words={words}/>
         <StatusBar style="auto" />
       </View>
     </ContextProvider>

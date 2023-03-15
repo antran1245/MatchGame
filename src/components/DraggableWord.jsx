@@ -3,7 +3,7 @@ import { Animated, PanResponder, StyleSheet, View, Text } from "react-native"
 import { StateContext } from "../context/ContextProvider"
 
 export default function DraggableWord({word} : props) {
-  const context = useContext(StateContext)
+  const { setScrollable, dropzoneRef } = useContext(StateContext)
   const [backgroundColor, setBackgroundColor] = useState('white')
 
   const pan = useRef(new Animated.ValueXY()).current
@@ -19,13 +19,13 @@ export default function DraggableWord({word} : props) {
   ).current
   
   const test = () => {
-    console.log(context.definitionLocation)
-    context.setScrollable(true)
+    console.log(dropzoneRef[0].current)
+    setScrollable(true)
   }
   return(
     <Animated.View
       style={{transform: [{translateX: pan.x}, {translateY: pan.y}]}}
-      {...panResponder.panHandlers} onTouchStart={() => context.setScrollable(true)} onTouchEnd={() => test()}>
+      {...panResponder.panHandlers} onTouchStart={() => setScrollable(true)} onTouchEnd={() => test()}>
       <View style={[styles.word_container, {backgroundColor: backgroundColor}]}>
         <Text>{word}</Text>
       </View>
