@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react"
+import { useCallback, useContext, useEffect, useRef, useState } from "react"
 import { Animated, PanResponder, StyleSheet, View, Text } from "react-native"
 import { StateContext } from "../context/ContextProvider"
 
@@ -7,25 +7,38 @@ export default function DraggableWord({word} : props) {
   const [backgroundColor, setBackgroundColor] = useState('white')
 
   const pan = useRef(new Animated.ValueXY()).current
+
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: Animated.event([null, {dx: pan.x, dy: pan.y}], {useNativeDriver: false}),
       onPanResponderRelease: (event, gesture) => {
         setBackgroundColor('blue')
+        console.log(dropzoneRef)
         pan.extractOffset()
       }
     })
-  ).current
-  
+  )
+
+  useEffect(() => {
+    panResponder.current = PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([null, {dx: pan.x, dy: pan.y}], {useNativeDriver: false}),
+      onPanResponderRelease: (event, gesture) => {
+        setBackgroundColor('blue')
+        console.log(dropzoneRef)
+        pan.extractOffset()
+      }
+    })
+  }, [dropzoneRef])
+
   const test = () => {
-    console.log(dropzoneRef[0].current)
     setScrollable(true)
   }
   return(
     <Animated.View
       style={{transform: [{translateX: pan.x}, {translateY: pan.y}]}}
-      {...panResponder.panHandlers} onTouchStart={() => setScrollable(true)} onTouchEnd={() => test()}>
+      {...panResponder.current?.panHandlers} onTouchStart={() => setScrollable(true)} onTouchEnd={() => test()}>
       <View style={[styles.word_container, {backgroundColor: backgroundColor}]}>
         <Text>{word}</Text>
       </View>
