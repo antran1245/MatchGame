@@ -15,7 +15,9 @@ export default function DraggableWord({word} : props) {
         for(let i = 0; i < dropzoneRef.current.length; i++) {
           dropzoneRef?.current[i][0].current.measure((x2, y2, width2, height2, pageX2, pageY2) => {
             if(pageY < (pageY2 + (height2/2)) && pageY > pageY2 - (height2/2)) {
-              console.log('here ', dropzoneRef?.current[i][1])
+              // console.log('here ', dropzoneRef?.current[i][1]('hi'))
+              dropzoneRef?.current[i][1]('hi')
+
             }
           })
         }
@@ -28,7 +30,7 @@ export default function DraggableWord({word} : props) {
       onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: Animated.event([null, {dx: pan.x, dy: pan.y}], {useNativeDriver: false}),
       onPanResponderRelease: (event, gesture) => {
-        setBackgroundColor('blue')
+        // setBackgroundColor('blue')
         wordWithinBound()
         pan.extractOffset()
       }
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     marginHorizontal: 4,
     borderRadius: 30,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: 'black',
     minHeight: 45
   }
