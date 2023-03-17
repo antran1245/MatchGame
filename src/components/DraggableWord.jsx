@@ -12,13 +12,13 @@ export default function DraggableWord({word} : props) {
   const wordWithinBound = () => {
     if(dropzoneRef) {
       wordRef.current.measure((x, y, width, height, pageX, pageY) => {
-        console.log("wordRef", pageX, pageY)
-        dropzoneRef?.current[2][0].current.measure((x2, y2, width2, height2, pageX2, pageY2) => {
-          console.log("dropzoneRef", pageX2, pageY2)
-          if(pageY < pageY2) {
-            console.log('here ', dropzoneRef?.current[2][1])
-          }
-        })
+        for(let i = 0; i < dropzoneRef.current.length; i++) {
+          dropzoneRef?.current[i][0].current.measure((x2, y2, width2, height2, pageX2, pageY2) => {
+            if(pageY < (pageY2 + (height2/2)) && pageY > pageY2 - (height2/2)) {
+              console.log('here ', dropzoneRef?.current[i][1])
+            }
+          })
+        }
       })
     }
   }
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: 'black'
+    borderColor: 'black',
+    minHeight: 45
   }
 })
